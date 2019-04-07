@@ -179,7 +179,7 @@
 			addElm.setAttribute('elm-index',count);
 			addElm.innerHTML = '<i class="far fa-edit"></i><div class="lang-cards__card-box"><h3 class="lang-cards__card-title">Custom card</h3><div class="lang-cards__card-description"><div class="lang-cards__card-sourceText cards-text">You can edit the text of this card.</div><div class="lang-cards__card-translation cards-text">Вы можете редактировать текст этой карточки</div></div></div><div class="lang-cards__redact"><input type="text" placeholder="" name="title"/><input type="text" placeholder="" name="sourceText"/><input type="text" placeholder="" name="description"/><i class="fas fa-check"></i></div>';
 
-			thisContext.JsonDat.push({
+			thisContext.JsonDat.unshift({
 				theme: 'custom',
 				sourceText: 'custom',
 				translation: 'custom',
