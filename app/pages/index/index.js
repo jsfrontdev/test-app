@@ -37,6 +37,8 @@
 				this.JsonDat = JSON.parse(localStorage.getItem('PhrasesDat'));
 				thisContext.filterData();
 			}
+		} else{
+			alert('Use some new browser');
 		}
 
 	}
