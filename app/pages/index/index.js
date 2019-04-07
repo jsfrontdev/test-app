@@ -119,6 +119,17 @@
 
 		}
 
+		elm.nextElementSibling.childNodes[4].onclick = function(){
+			let i = parseInt(this.parentNode.parentNode.getAttribute('elm-index'));
+			for(let j = 0; j < thisContext.JsonDat.length; j++ ){
+				if(thisContext.JsonDat[j]['id'] == i)
+					thisContext.JsonDat.splice(j,1);
+			}
+			localStorage.setItem('PhrasesDat',JSON.stringify(thisContext.JsonDat));
+			this.parentNode.parentNode.remove();
+
+		}
+
 		elm.onclick = function(){
 			this.classList.toggle('translate');
 			let thisContext = this;
@@ -130,7 +141,7 @@
 		}
 
 		elm.nextElementSibling.childNodes[3].onclick = function(){
-			if(!elm.nextElementSibling.childNodes[4]) {
+			if(!elm.nextElementSibling.childNodes[5]) {
 				if (this.parentNode.childNodes[0].value || this.parentNode.childNodes[1].value || this.parentNode.childNodes[2].value) {
 
 					if (this.parentNode.childNodes[0].value){
@@ -177,7 +188,7 @@
 			count ++;
 			addElm.classList.add('lang-cards__card-box-wrapp');
 			addElm.setAttribute('elm-index',count);
-			addElm.innerHTML = '<i class="far fa-edit"></i><div class="lang-cards__card-box"><h3 class="lang-cards__card-title">Custom card</h3><div class="lang-cards__card-description"><div class="lang-cards__card-sourceText cards-text">You can edit the text of this card.</div><div class="lang-cards__card-translation cards-text">Вы можете редактировать текст этой карточки</div></div></div><div class="lang-cards__redact"><input type="text" placeholder="" name="title"/><input type="text" placeholder="" name="sourceText"/><input type="text" placeholder="" name="description"/><i class="fas fa-check"></i></div>';
+			addElm.innerHTML = '<i class="far fa-edit"></i><div class="lang-cards__card-box"><h3 class="lang-cards__card-title">Custom card</h3><div class="lang-cards__card-description"><div class="lang-cards__card-sourceText cards-text">You can edit the text of this card.</div><div class="lang-cards__card-translation cards-text">Вы можете редактировать текст этой карточки</div></div></div><div class="lang-cards__redact"><input type="text" placeholder="" name="title"/><input type="text" placeholder="" name="sourceText"/><input type="text" placeholder="" name="description"/><i class="fas fa-check"></i><i class="far fa-trash-alt"></i></div>';
 
 			thisContext.JsonDat.unshift({
 				theme: 'custom',
@@ -245,7 +256,7 @@
 
 		for(let i =  0; i < obj.length; i++){
 
-			str += '<div elm-index="'+obj[i]['id']+'" class="lang-cards__card-box-wrapp '+obj[i]['color']+'"><i class="far fa-edit"></i><div class="lang-cards__card-box"><h3 class="lang-cards__card-title">'+obj[i]['theme']+'</h3><div class="lang-cards__card-description"><div class="lang-cards__card-sourceText cards-text">'+obj[i]['sourceText']+'</div><div class="lang-cards__card-translation cards-text">'+obj[i]['translation']+'</div></div></div><div class="lang-cards__redact"><input type="text" value="'+obj[i]['theme']+'" placeholder="" name="title"/><input type="text" placeholder="" value="'+obj[i]['sourceText']+'" name="sourceText"/><input type="text" placeholder="" value="'+obj[i]['translation']+'" name="translation"/><i class="fas fa-check"></i></div></div>'
+			str += '<div elm-index="'+obj[i]['id']+'" class="lang-cards__card-box-wrapp '+obj[i]['color']+'"><i class="far fa-edit"></i><div class="lang-cards__card-box"><h3 class="lang-cards__card-title">'+obj[i]['theme']+'</h3><div class="lang-cards__card-description"><div class="lang-cards__card-sourceText cards-text">'+obj[i]['sourceText']+'</div><div class="lang-cards__card-translation cards-text">'+obj[i]['translation']+'</div></div></div><div class="lang-cards__redact"><input type="text" value="'+obj[i]['theme']+'" placeholder="" name="title"/><input type="text" placeholder="" value="'+obj[i]['sourceText']+'" name="sourceText"/><input type="text" placeholder="" value="'+obj[i]['translation']+'" name="translation"/><i class="fas fa-check"></i><i class="far fa-trash-alt"></i></div></div>'
 		}
 
 		return str;
