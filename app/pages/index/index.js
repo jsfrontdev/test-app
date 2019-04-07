@@ -6,7 +6,6 @@
 	let promise;
 	let event;
 	let addNew;
-	//let appClass;
 	function appClass(name){
 		this.name = name;
 
@@ -44,15 +43,10 @@
 	}
 
 	appClass.prototype.filterData = function(){
-
 		let thisContext = this;
-
 		promise = function(){
-
 			return new Promise(function(){
-
 				return setTimeout(function(){
-
 					thisContext.arrSort = thisContext.JsonDat;
 					thisContext.objSorted = {};
 					let count = 0;
@@ -75,52 +69,34 @@
 
 					if(localStorage.getItem('cardLastIndex'))
 						thisContext.cardLastIndex = parseInt(localStorage.getItem('cardLastIndex'));
-
 					for(let i = 0; i <= thisContext.arrSort.length - 1; i++){
-
 						count ++;
 						thisContext.arrSort[i].color = COLORS[Math.round(0 - 0.5 + Math.random() * (9 - 0 + 1))];
 						thisContext.arrSort[i].id = i;
 						if(!localStorage.getItem('cardLastIndex'))
 							thisContext.cardLastIndex = i;
-
 						if(i < FIRSTCOL_SIZE){
-
-
 							arrFirstCol.push(thisContext.arrSort[i]);
 							thisContext.objSorted.col_1 = arrFirstCol.sort(SortRandom).sort(Sortlength);
 						}
-
 						if(count > FIRSTCOL_SIZE){
-
-
 							if(countCol < 2){
 								countCol = 2;
 								pushCol.call(thisContext ,i,COL_SIZE - 1,countCol);
-
 							}
-
 						}
-
 						if(count >= COL_SIZE){
-
 							countCol ++;
 							count = 0;
-
 							pushCol.call(thisContext,i,(i + COL_SIZE),countCol);
 						}
-
 					}
-
 				}.call(thisContext),0)
-
 			});
 		}
 
 		return promise().then(function(){
-
 			this.cardsBuild();
-
 		}.call(this));
 
 	}
@@ -145,10 +121,15 @@
 
 		elm.onclick = function(){
 			this.classList.toggle('translate');
+			let thisContext = this;
+			setTimeout(function(){
+				if(thisContext.classList.contains('translate')){
+					thisContext.classList.remove('translate');
+				}
+			},1500)
 		}
 
 		elm.nextElementSibling.childNodes[3].onclick = function(){
-			
 			if(!elm.nextElementSibling.childNodes[4]) {
 				if (this.parentNode.childNodes[0].value || this.parentNode.childNodes[1].value || this.parentNode.childNodes[2].value) {
 
@@ -184,7 +165,6 @@
 			}
 			console.log(thisContext);
 		}
-
 	}
 
 	appClass.prototype.cardAdd = function(elm){
@@ -219,13 +199,10 @@
 	appClass.prototype.cardsBuild = function(){
 
 		let str = '';
-
 		for(let key in this.objSorted){
-
 			str += '<div class="col-wh-4 lang-cards__col col-'+key.split('_')[1]+'">'+cardBuild.call(this,this.objSorted['col_'+key.split('_')[1]+''])+'<span class="lang-cards__add-btn btn-col-'+key.split('_')[1]+'">+</span></div>'
 
 			document.querySelectorAll('.colls--box')[0].innerHTML = str;
-
 		}
 
 	}
@@ -268,7 +245,7 @@
 
 		for(let i =  0; i < obj.length; i++){
 
-			str += '<div elm-index="'+obj[i]['id']+'" class="lang-cards__card-box-wrapp '+obj[i]['color']+'"><i class="far fa-edit"></i><div class="lang-cards__card-box"><h3 class="lang-cards__card-title">'+obj[i]['theme']+'</h3><div class="lang-cards__card-description"><div class="lang-cards__card-sourceText cards-text">'+obj[i]['sourceText']+'</div><div class="lang-cards__card-translation cards-text">'+obj[i]['translation']+'</div></div></div><div class="lang-cards__redact"><input type="text" placeholder="" name="title"/><input type="text" placeholder="" name="sourceText"/><input type="text" placeholder="" name="description"/><i class="fas fa-check"></i></div></div>'
+			str += '<div elm-index="'+obj[i]['id']+'" class="lang-cards__card-box-wrapp '+obj[i]['color']+'"><i class="far fa-edit"></i><div class="lang-cards__card-box"><h3 class="lang-cards__card-title">'+obj[i]['theme']+'</h3><div class="lang-cards__card-description"><div class="lang-cards__card-sourceText cards-text">'+obj[i]['sourceText']+'</div><div class="lang-cards__card-translation cards-text">'+obj[i]['translation']+'</div></div></div><div class="lang-cards__redact"><input type="text" value="'+obj[i]['theme']+'" placeholder="" name="title"/><input type="text" placeholder="" value="'+obj[i]['sourceText']+'" name="sourceText"/><input type="text" placeholder="" value="'+obj[i]['translation']+'" name="translation"/><i class="fas fa-check"></i></div></div>'
 		}
 
 		return str;
